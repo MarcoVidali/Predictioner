@@ -1,0 +1,1 @@
+COMMANDS = [["~", "help", "back", "list", "create", "remove", "load"], ["Project", "help", "back", "list", "add", "predict"]]
