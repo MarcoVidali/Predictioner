@@ -26,8 +26,6 @@ def predict_geometric(sequence:list, steps:int, r:float) -> float:
     for i in range(steps): result += f"{sequence[0] * (pow(r, (len(sequence) + i)))}, "
     return result
 def predict_tensor(sequence:list, steps:int) -> str:
-    if len(sequence) <= 2: return "?"
-
     import os
     os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
@@ -54,6 +52,8 @@ def predict_tensor(sequence:list, steps:int) -> str:
     return result
 
 def predict(sequence:list, steps:int) -> str:
+    if len(sequence) <= 2: return "?"
+    
     # fixing sequence
     sequence = [float(x) for x in sequence]
 

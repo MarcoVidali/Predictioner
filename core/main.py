@@ -34,6 +34,10 @@ def main() -> None:
                 elif action == "remove": commands.remove(DATA_PATH, argument)
                 elif action == "load":
                     section = commands.load(projects_list, argument, section)
+                elif action == "": pass
+                else:
+                    # feedback
+                    input(f"Command \"{action}\" does not exist...\n")
 
             elif section in projects_list:
                 if action == "help": input(commands.help(consts.COMMANDS))
@@ -42,12 +46,16 @@ def main() -> None:
                     if argument[0] == '"' and argument[len(argument) - 1] == '"':
                         argument = argument.replace('"', "")
                         commands.add_file(DATA_PATH, section, argument)
-                    else: commands.add(DATA_PATH, section, argument)
+                    else: commands.add(DATA_PATH, section, argument, True)
                 elif action == "list": input(commands.list_data(DATA_PATH, section))
                 elif action == "predict":
                     sequence:list = commands.list_data(DATA_PATH, section).split("\n")
                     sequence.pop()
-
                     input(f"Prediction/s: {prediction.predict(sequence, int(argument))}\n")
-
-        except: pass
+                elif action == "": pass
+                else:
+                    # feedback
+                    input(f"Command \"{action}\" does not exist...\n")
+        except:
+            # feedback
+            input("An error occurred...\n")
