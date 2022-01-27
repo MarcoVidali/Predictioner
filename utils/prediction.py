@@ -41,12 +41,14 @@ def predict_tensor(sequence:list, steps:int) -> str:
     values:list = np.array(sequence, dtype = float)
 
     # training model
-    model.fit(indexes, values, epochs = 1000, verbose = 0)
+    model.fit(indexes, values, epochs = 10000, verbose = 0)
 
     # predicting
     result:str = ""
     for i in range(steps):
-        prediction = format(model.predict([len(sequence) + (i + 1)])[0][0], ".1f")
+        prediction:float = model.predict([len(sequence) + (i + 1)])[0][0]
+        prediction = format(prediction, ".1f")
+
         result += f"{prediction}, "
 
     return result

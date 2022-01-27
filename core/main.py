@@ -10,7 +10,7 @@ def main() -> None:
 
     # loading containers
     with open("./containers/paths.json", "r") as file:
-        DATA_PATH= json.load(file)["data"]
+        DATA_PATH:str = json.load(file)["data"]
 
     while run:
         try:
@@ -20,7 +20,8 @@ def main() -> None:
             projects_list:list = files.get_proejects(DATA_PATH)
 
             # getting command
-            command:str = input(f"{section}> ")
+            if section != "~": command:str = input(f"project({section}) > ")
+            else: command:str = input(f"{section}> ")
             action:str = command.split(" ")[0]
             try: argument:str = command.split(" ")[1]
             except: pass
