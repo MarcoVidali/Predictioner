@@ -17,6 +17,40 @@ def index_array(elements:list) -> list:
     for i in range(len(elements)): result.append(i + 1)
     return result
 
+def get_function(type:str, c:float) -> str:
+    c = str(c)
+    
+    if type == "arithmetic" and c[0] != "-":
+        return f"x + {c}"
+    elif type == "arithmetic" and c[0] == "-":
+        return f"x - {c[1:]}"
+    elif type == "geometric":
+        return f"x ** {c}"
+    else:
+        return "Unknown function..."
+
+def plot_function(function:str) -> None:
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    # fixing function
+    x:list = np.linspace(-5, 5, 100)
+    function:float = eval(function)
+
+    # plotting
+    fig:object = plt.figure()
+    
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines["left"].set_position("center")
+    ax.spines["bottom"].set_position("zero")
+    ax.spines["right"].set_color("none")
+    ax.spines["top"].set_color("none")
+    ax.xaxis.set_ticks_position("bottom")
+    ax.yaxis.set_ticks_position("left")
+
+    plt.plot(x, function, "r")
+    plt.show()
+
 def predict_arithmetic(sequence:list, steps:int, d:float) -> float:
     result:str = ""
     for i in range(steps): result += f"{sequence[0] + (len(sequence) + i) * d}, "
@@ -62,13 +96,21 @@ def predict(sequence:list, steps:int) -> str:
     # getting sequence type
     sequence_type:str = check_type(sequence)
     
-    # checking sequence type
+    # predicting
     if sequence_type == "arithmetic":
         d = sequence[1] - sequence[0]
-        result = predict_arithmetic(sequence, steps, d)
+        result:str = predict_arithmetic(sequence, steps, d)
     elif sequence_type == "geometric":
         r = sequence[1] / sequence[0]
-        result = predict_geometric(sequence, steps, r)
-    else: result = predict_tensor(sequence, steps)
+        result:str = predict_geometric(sequence, steps, r)
+    else: result:str = predict_tensor(sequence, steps)
 
-    return result[:len(result) - 2]
+    # getting function
+    if sequence_type == "arithmetic":
+        sequence_function:str = get_function(sequence_type, d)
+    elif sequence_type == "geometric":
+        sequence_function:str = get_function(sequence_type, r)
+    else:
+        sequence_function:str = get_function(sequence_type, None)
+
+    return sequence_function, result[:len(result) - 2]

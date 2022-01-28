@@ -28,9 +28,9 @@ def main() -> None:
 
             # processing command
             if section == "~":
-                if action == "help": input(commands.help(consts.COMMANDS))
+                if action == "help": input(f"\n{commands.help(consts.COMMANDS)}\n")
                 elif action == "back": run = False
-                elif action == "list": input(commands.list_projects(projects_list))
+                elif action == "list": input(f"\n{commands.list_projects(projects_list)}\n")
                 elif action == "create": commands.create(DATA_PATH, argument)
                 elif action == "remove": commands.remove(DATA_PATH, argument)
                 elif action == "load":
@@ -38,25 +38,35 @@ def main() -> None:
                 elif action == "": pass
                 else:
                     # feedback
-                    input(f"Command \"{action}\" does not exist...\n")
+                    input(f"\nCommand \"{action}\" does not exist...\n\n")
 
             elif section in projects_list:
-                if action == "help": input(commands.help(consts.COMMANDS))
+                if action == "help": input(f"\n{commands.help(consts.COMMANDS)}\n")
                 elif action == "back": section = "~"
                 elif action == "add":
                     if argument[0] == '"' and argument[len(argument) - 1] == '"':
                         argument = argument.replace('"', "")
                         commands.add_file(DATA_PATH, section, argument)
                     else: commands.add(DATA_PATH, section, argument, True)
-                elif action == "list": input(commands.list_data(DATA_PATH, section))
+                elif action == "list": input(f"\n{commands.list_data(DATA_PATH, section)}\n")
+                elif action == "reset": commands.reset(DATA_PATH, section)
                 elif action == "predict":
+                    # showing sequence
                     sequence:list = commands.list_data(DATA_PATH, section).split("\n")
                     sequence.pop()
-                    input(f"Prediction/s: {prediction.predict(sequence, int(argument))}\n")
+                    sequence_function, result = prediction.predict(sequence, int(argument))
+
+                    # showing plot
+                    if sequence_function != "Unknown function...":
+                        input(f"\nSequence function: {sequence_function}\nPrediction/s: {result}\n")
+                        prediction.plot_function(sequence_function)
+                    else:
+                        input(f"\nSequence function: {sequence_function}\nPrediction/s: {result}\n\n")
+
                 elif action == "": pass
                 else:
                     # feedback
-                    input(f"Command \"{action}\" does not exist...\n")
+                    input(f"\nCommand \"{action}\" does not exist...\n\n")
         except:
             # feedback
-            input("An error occurred...\n")
+            input("\nAn error occurred...\n\n")
