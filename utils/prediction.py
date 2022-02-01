@@ -25,7 +25,7 @@ def get_function(type:str, c:float) -> str:
     elif type == "arithmetic" and c[0] == "-":
         return f"x - {c[1:]}"
     elif type == "geometric":
-        return f"x ** {c}"
+        return f"x * {c}"
     else:
         return "Unknown function..."
 
@@ -35,6 +35,7 @@ def plot_function(function:str) -> None:
 
     # fixing function
     x:list = np.linspace(-5, 5, 100)
+    if function[2] == "*": function = f"x ** {function[4]}"
     function:float = eval(function)
 
     # plotting

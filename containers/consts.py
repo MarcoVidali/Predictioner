@@ -1,1 +1,2 @@
 COMMANDS = [["~", "help", "back", "list", "create", "remove", "load"], ["Project", "help", "back", "list", "add", "reset", "predict"]]
+GREETINGS = ["Bye.", "Goodbye.", "Have a good day.", "Take it easy.", "See you soon."]
