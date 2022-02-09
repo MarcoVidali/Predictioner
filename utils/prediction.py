@@ -16,6 +16,10 @@ def index_array(elements:list) -> list:
     result:list = []
     for i in range(len(elements)): result.append(i + 1)
     return result
+# def range_array(top:float) -> list:
+#     result:list = []
+#     for i in range(round(top) + 2): result.append(i)
+#     return result
 
 def get_function(type:str, c:float) -> str:
     c = str(c)
@@ -49,7 +53,12 @@ def plot_function(function:str) -> None:
     ax.xaxis.set_ticks_position("bottom")
     ax.yaxis.set_ticks_position("left")
 
-    plt.plot(x, function, "r")
+    plt.plot(x, function, "b")
+    plt.show()
+def plot_tensor(tensor:list) -> None:
+    import matplotlib.pyplot as plt
+
+    plt.plot(index_array(tensor), tensor, "b")
     plt.show()
 
 def predict_arithmetic(sequence:list, steps:int, d:float) -> float:

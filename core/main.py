@@ -52,17 +52,25 @@ def main() -> None:
                 elif action == "list": input(f"{console.blue()}\n{commands.list_data(DATA_PATH, section)}\n")
                 elif action == "reset": commands.reset(DATA_PATH, section)
                 elif action == "predict":
-                    # showing sequence
+                    # getting sequence
                     sequence:list = commands.list_data(DATA_PATH, section).split("\n")
                     sequence.pop()
                     sequence_function, result = prediction.predict(sequence, int(argument))
 
-                    # showing plot
+                    # showing sequence and plot
                     if sequence_function != "Unknown function...":
                         input(f"{console.blue()}\nSequence function: {sequence_function}\nPrediction/s: {result}\n")
                         prediction.plot_function(sequence_function)
                     else:
-                        input(f"{console.blue()}\nSequence function: {sequence_function}\nPrediction/s: {result}\n\n")
+                        input(f"{console.blue()}\nSequence function: {sequence_function}\nPrediction/s: {result}\n")
+                        
+                        # creating tensor
+                        tensor:list = []
+                        for term in sequence: tensor.append(float(term))
+                        for term in result.split(","): tensor.append(float(term))
+
+                        # showing plot
+                        prediction.plot_tensor(tensor)
 
                 elif action == "": pass
                 else:
