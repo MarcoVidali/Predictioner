@@ -3,3 +3,4 @@ tabulate
 os
 tensorflow
 numpy
+colorama
