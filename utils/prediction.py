@@ -16,10 +16,6 @@ def index_array(elements:list) -> list:
     result:list = []
     for i in range(len(elements)): result.append(i + 1)
     return result
-# def range_array(top:float) -> list:
-#     result:list = []
-#     for i in range(round(top) + 2): result.append(i)
-#     return result
 
 def get_function(type:str, c:float) -> str:
     c = str(c)
@@ -44,7 +40,7 @@ def plot_function(function:str) -> None:
 
     # plotting
     fig:object = plt.figure()
-    
+
     ax = fig.add_subplot(1, 1, 1)
     ax.spines["left"].set_position("center")
     ax.spines["bottom"].set_position("zero")
