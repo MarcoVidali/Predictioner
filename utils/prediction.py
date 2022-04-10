@@ -27,7 +27,7 @@ def get_function(type:str, c:float) -> str:
     elif type == "geometric":
         return f"x * {c}"
     else:
-        return "Unknown function..."
+        return "Unknown"
 
 def plot_function(function:str) -> None:
     import matplotlib.pyplot as plt
