@@ -1,6 +1,4 @@
-json
 tabulate
-os
 tensorflow
 numpy
 colorama
